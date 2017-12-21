@@ -1,0 +1,36 @@
+<?php /* @var $meeting \Conf\Entity\Meeting */ ?>
+<a href="../meeting">Retour à liste des Meetings</a>
+
+<h1>Meeting details : </h1><br>
+
+<h2><?= $meeting->getNameMeeting(); ?></h2>
+<p style="color:dodgerblue; font-weight: bold;"><em>Commence le : <?= $meeting->getDateDebut(); ?></em></p>
+<p style="color:dodgerblue; font-weight: bold;"><em>Fini le : <?= $meeting->getDateFin(); ?></em></p>
+<p><?= $meeting->getDescriptionMeeting(); ?></p>
+<p><?= $meeting->getIDMeeting(); ?></p>
+
+<?php
+//Recupere les dates :
+$dateAuj = date("d m Y");
+$dateDebut = $meeting->getDateDebut();
+$dateFin = $meeting->getDateFin();
+
+//explode pour mettre la date en format numerique
+$dAuj = explode(" ", $dateAuj);
+$dDeb = explode(" ", $dateDebut);
+$dFin = explode(" ", $dateFin);
+
+//Concatenation pour inverser l'ordre
+$auj = $dAuj[2].$dAuj[1].$dAuj[0];
+$deb = $dDeb[2].$dDeb[1].$dDeb[0];
+$fin = $dFin[2].$dFin[1].$dFin[0];
+
+
+if ($auj <= $deb){
+    echo "<h3 style='color: deeppink;'>Meeting à venir</h3>";
+}else if ($auj >= $fin) {
+ echo "<h3 style='color: deeppink;'>Meeting passé</h3>";
+}else{
+    echo "<h3 style='color: deeppink;'>Meeting en cour</h3>";
+}
+
